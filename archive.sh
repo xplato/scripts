@@ -2,8 +2,13 @@
 
 # archive.sh
 # Archives files and folders to a zip file
+#
+# Note that this script is optimized for MacOS. If you wish to use
+# it on another OS, you will need to change the paths.
+#
 # Usage: archive.sh [-m|--keep-modules]
-# -m or --keep-modules • keep node_modules and .next directories (default is to delete them)
+# -m or --keep-modules • keep node_modules and .next directories
+# (default is to delete them)
 
 # Emoji legend
 # 🏁 Start
