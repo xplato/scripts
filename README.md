@@ -1,0 +1,3 @@
+# @xplato/scripts
+
+General scripts!
