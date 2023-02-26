@@ -1,5 +1,19 @@
 #!/usr/bin/env zsh
 
+# archive.sh
+# Archives files and folders to a zip file
+# Usage: archive.sh [-m|--keep-modules]
+# -m or --keep-modules • keep node_modules and .next directories (default is to delete them)
+
+# Emoji legend
+# 🏁 Start
+# 🔷 Info
+# 🛑 Error prompt
+# ❌ Error / Exit
+# ⭕️ Delete
+# ✅ Copy / Create
+# 🎉 Done
+
 sources=(
 	"Desktop"
 	"Downloads"
@@ -28,7 +42,7 @@ if [ -f "/Users/$USER/$archive_name.zip" ]; then
 	read -r response
 
 	if [ "$response" = "y" ]; then
-		echo "⭕️ Deleting archive..."
+		echo "⭕️ Deleting $archive_name.zip..."
 		rm /Users/$USER/$archive_name.zip
 	else
 		echo "❌ Exiting..."
@@ -36,11 +50,16 @@ if [ -f "/Users/$USER/$archive_name.zip" ]; then
 	fi
 fi
 
-echo "⭕️ Deleting node_modules..."
-find ~/Documents -name "node_modules" -type d -prune -exec rm -rf {} +
+# Clear out node_modules and .next automatically unless -m or --keep-modules is passed
+if [[ $1 =~ ^(-m|--keep-modules) ]]; then
+	echo "🔷 Not deleting node_modules and .next"
+else
+	echo "⭕️ Deleting node_modules..."
+	find ~/Documents -name "node_modules" -type d -prune -exec rm -rf {} +
 
-echo "⭕️ Deleting .next..."
-find ~/Documents -name ".next" -type d -prune -exec rm -rf {} +
+	echo "⭕️ Deleting .next..."
+	find ~/Documents -name ".next" -type d -prune -exec rm -rf {} +
+fi
 
 echo "✅ Creating $destination..."
 mkdir $destination
@@ -57,7 +76,7 @@ for source in $sources; do
 done
 
 # Compress the main archive
-echo "🌀 Compressing archive..."
+echo "🔷 Compressing archive..."
 cd $(dirname $destination)
 zip -rq $archive_name.zip $(basename $destination)
 
@@ -65,4 +84,4 @@ zip -rq $archive_name.zip $(basename $destination)
 echo "⭕️ Deleting uncompressed archive..."
 rm -rf $destination
 
-echo "\n🎉 Done!"
+echo "\n🎉 Done! Your archive is located at /Users/$USER/$archive_name.zip"
