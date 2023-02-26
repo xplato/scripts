@@ -25,7 +25,6 @@ sources=(
 	"Documents"
 	"Music"
 	"Movies"
-	".ssh"
 	".vim"
 	".warp"
 	".gitconfig"
@@ -39,7 +38,7 @@ sources=(
 archive_name=archive-$(date +%Y-%m-%d)
 destination=/Users/$USER/$archive_name
 
-echo "🏁 Starting the archiver!\n"
+echo "🏁 Starting the archiver!"
 
 # Check if an archive.zip already exists
 if [ -f "/Users/$USER/$archive_name.zip" ]; then
@@ -89,4 +88,4 @@ zip -rq $archive_name.zip $(basename $destination)
 echo "⭕️ Deleting uncompressed archive..."
 rm -rf $destination
 
-echo "\n🎉 Done! Your archive is located at /Users/$USER/$archive_name.zip"
+echo "🎉 Done! Your archive is located at /Users/$USER/$archive_name.zip"
