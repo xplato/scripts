@@ -25,6 +25,7 @@ sources=(
 	"Documents"
 	"Music"
 	"Movies"
+	"Images"
 	".vim"
 	".warp"
 	".gitconfig"
