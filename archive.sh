@@ -37,18 +37,18 @@ sources=(
 
 # Set and create destination
 archive_name=archive-$(date +%Y-%m-%d)
-destination=/Users/$USER/$archive_name
+destination=$HOME/$archive_name
 
 echo "🏁 Starting the archiver!"
 
 # Check if an archive.zip already exists
-if [ -f "/Users/$USER/$archive_name.zip" ]; then
+if [ -f "$destination.zip" ]; then
 	echo "🛑 An archive already exists for today. Would you like to delete it? (y/N)"
 	read -r response
 
 	if [ "$response" = "y" ]; then
 		echo "⭕️ Deleting $archive_name.zip..."
-		rm /Users/$USER/$archive_name.zip
+		rm $destination.zip
 	else
 		echo "❌ Exiting..."
 		exit 1
@@ -72,11 +72,11 @@ mkdir $destination
 for source in $sources; do
 	echo "✅ Copying $source..."
 
-	if [ -d "/Users/$USER/$source" ]; then
+	if [ -d "$HOME/$source" ]; then
 		mkdir $destination/$source
-		cp -r /Users/$USER/$source $destination
+		cp -r $HOME/$source $destination
 	else
-		cp /Users/$USER/$source $destination
+		cp $HOME/$source $destination
 	fi
 done
 
@@ -89,4 +89,4 @@ zip -rq $archive_name.zip $(basename $destination)
 echo "⭕️ Deleting uncompressed archive..."
 rm -rf $destination
 
-echo "🎉 Done! Your archive is located at /Users/$USER/$archive_name.zip"
+echo "🎉 Done! Your archive is located at $destination.zip"
