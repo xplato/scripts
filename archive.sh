@@ -35,8 +35,17 @@ sources=(
 	".zshrc"
 )
 
-# Set and create destination
-archive_name=archive-$(date +%Y-%m-%d)
+# Get the user-defined name of the system
+raw_name=$(scutil --get ComputerName)
+
+# Replace spaces with dashes and convert to lowercase
+formatted_name=$(echo "$raw_name" | sed 's/ /-/g' | tr '[:upper:]' '[:lower:]')
+
+# Generate date-based part of archive name
+date_part=$(date +%Y-%m-%d)
+
+# Set and create destination with computer name prepended
+archive_name="${formatted_name}-${date_part}"
 destination=$HOME/$archive_name
 
 echo "🏁 Starting the archiver!"
