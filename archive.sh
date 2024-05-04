@@ -23,6 +23,7 @@ sources=(
 	"Desktop"
 	"Downloads"
 	"Documents"
+	"Workspace"
 	"Music"
 	"Movies"
 	"Images"
